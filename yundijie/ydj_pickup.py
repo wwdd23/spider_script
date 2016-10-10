@@ -18,7 +18,7 @@ headers = {
         'Accept-Language':'zh-CN,zh;q=0.8',
         'Cookie':'JSESSIONID= 23B95B78993912477ACCDDFD733CDF37',
         'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.14) Gecko/20080404 (FoxPlus) Firefox/2.0.0.14',
-        'Cookie': 'JSESSIONID=0129873CF5CAF4DF492598DD164A2AF6; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1475983325,1475994954; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476063145; cla_sso_token=2939a3eba1a34d668125; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F'
+        'Cookie':'JSESSIONID=B057E8AB6C2A10380562D6E455E0B105; cla_sso_token=3002e53498cc4c47bc16; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1475983325,1475994954; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476088465',
 
         }
 #params = ({"bindHyCardInfo":{"mobileNo":"1881026xxxx","userId":"2","cardno":"7926279367963021","cardpasswd":"xxxxxxxxxxxxxxx","ip":"127.0.0.1"},"header":{"version":"1.0.1","from":"1000","to":"2000","tid":"7926279367963021","time":"12312","token":"SEW342WEER2342","ext":""}})
