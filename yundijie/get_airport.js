@@ -122,15 +122,16 @@ request.get( { method: 'GET', url: url, gzip: true, timeout: 5 * 1000 } , functi
             }
           } else {
               console.log("in----111" + key);
+              console.log(obj.all[key][i]['airports'][0]['airportName']);
               var data = {
-                "airportCode": obj.all[key][i]['airports']['airportCode'],
-                "airportHotWeight":  obj.all[key][i]['airports']['airportHotWeight'],
-                "airportId":  obj.all[key][i]['airports']['airportId'],
-                "airportLocation":  obj.all[key][i]['airports']['airportLocation'],
-                "airportName":  obj.all[key][i]['airports']['airportName'],
-                "bannerSwitch":  obj.all[key][i]['airports']['bannerSwitch'],
-                "isHotAirport":  obj.all[key][i]['airports']['isHotAirport'],
-                "landingVisaSwitch":  obj.all[key][i]['airports']['landingVisaSwitch'],
+                "airportCode": obj.all[key][i]['airports'][0]['airportCode'],
+                "airportHotWeight":  obj.all[key][i]['airports'][0]['airportHotWeight'],
+                "airportId":  obj.all[key][i]['airports'][0]['airportId'],
+                "airportLocation":  obj.all[key][i]['airports'][0]['airportLocation'],
+                "airportName":  obj.all[key][i]['airports'][0]['airportName'],
+                "bannerSwitch":  obj.all[key][i]['airports'][0]['bannerSwitch'],
+                "isHotAirport":  obj.all[key][i]['airports'][0]['isHotAirport'],
+                "landingVisaSwitch":  obj.all[key][i]['airports'][0]['landingVisaSwitch'],
 
 
                 "areaCode": obj.all[key][i]['areaCode'],
@@ -179,7 +180,7 @@ request.get( { method: 'GET', url: url, gzip: true, timeout: 5 * 1000 } , functi
   MongoClient.connect(DB_CONN_STR, function(err, db) {
     console.log("连接成功！");
     insertData(db, function(result) {
- //     console.log(result);
+      console.log(result);
       db.close();
     });
   });
