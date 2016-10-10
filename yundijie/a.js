@@ -10,8 +10,11 @@
 var $ = require('cheerio');
 var request = require('request');
 var fs = require('fs');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/nodejs');
+exports.mongoose = mongoose;
 //var iconv = require('iconv-lite');
-var url = process.argv[2] || 'http://yundijie.com/price/query_pickup_quotes'
+var url = process.argv[2] || 'https://fr.huangbaoche.com/reflash/cla/city_airports.js?1475999177939'
 
 
 header = {
@@ -22,12 +25,11 @@ header = {
   "Accept-Encoding":"gzip, deflate",
   "Accept-Language":"zh-CN,zh;q=0.8",
   'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.14) Gecko/20080404 (FoxPlus) Firefox/2.0.0.14',
-  'Cookie': 'cla_sso_token=702a7a62cbd142e35843; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F; JSESSIONID=84123C258BC1CCD2274E4787117CDEF9; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1476020986; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476027955'
+//  'Cookie': 'cla_sso_token=702a7a62cbd142e35843; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F; JSESSIONID=84123C258BC1CCD2274E4787117CDEF9; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1476020986; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476027955'
 
 }
 
-
-request.get({url:url, headers: header , encoding:null },function(error, response, body) {
+request.get( { method: 'GET', url: url, gzip: true, timeout: 5 * 1000 } , function(error, response, body) {
   if (error && error.code ==='ETIMEDOUT') {
     process.exit(0);
     return;
@@ -41,9 +43,11 @@ request.get({url:url, headers: header , encoding:null },function(error, response
     return;
   }
 
-  $ = $.load(body); 
-  //js_info = JSON.parse(body)['html']
-  getJson = json.loads(body)
-  console.log(getJson)
+  var api_info = body.match(/\{.*\}/)[0];//去除前后多余字段
 
-});
+  var obj = JSON.parse(api_info);
+  //console.log(obj);
+  console.log(JSON.stringify(obj,undefined,3));
+  return;
+})
+
