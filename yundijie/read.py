@@ -16,16 +16,23 @@ import string
 import urllib
 import datetime
 f = open("a.lst")             # 返回一个文件对象
-line = f.readline()             # 调用文件的 readline()方法
-while line:
-    print line,                 # 后面跟 ',' 将忽略换行符
-    # print(line, end = '')　　　# 在 Python 3中使用
-    line = f.readline()
-    time.sleep(3)
-    url = "http://yundijie.com/search/addresses?offset=0&limit=50&" + urllib.urlencode({"input":line})
+line = f.readlines()            # 调用文件的 readline()方法
+
+print line
+for i in line:
+    print i,
+    url = "http://yundijie.com/search/addresses?offset=0&limit=50&" + urllib.urlencode({"input":i})
     print url
-    print datetime.datetime.now().date()
-    print datetime.datetime.now()
-#    ydj_search.get_data(url,line.strip('\n'))
+    time.sleep(3)
+    ydj_search.get_data(url,i.strip('\n') )
+
+#while line:
+#    # print(line, end = '')　　　# 在 Python 3中使用
+#    print line,                 # 后面跟 ',' 将忽略换行符
+#    line = f.readline()
+#    url = "http://yundijie.com/search/addresses?offset=0&limit=50&" + urllib.urlencode({"input":line})
+#    print url
+#    time.sleep(3)
+#    #ydj_search.get_data(url,line.strip('\n'))
 
 f.close()

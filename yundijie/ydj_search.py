@@ -8,8 +8,9 @@ import StringIO
 import gzip
 import pymongo
 import urllib
+import datetime
 
-def get_data(urls,enname):
+def get_data(urls,ename):
     # 连接数据库
     conn = httplib.HTTPConnection("yundijie.com")
     headers = {
@@ -19,8 +20,9 @@ def get_data(urls,enname):
             'Accept-Encoding':'gzip, deflate',
             'Accept-Language':'zh-CN,zh;q=0.8',
             #'Cookie':'JSESSIONID= 23B95B78993912477ACCDDFD733CDF37',
+
             'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.14) Gecko/20080404 (FoxPlus) Firefox/2.0.0.14',
-            'Cookie':'cla_sso_token=1fa99d5d636e46da5359; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F; JSESSIONID=73B094097B908107CDAFC065C47BE4C0; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1475983325,1475994954; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476154023',
+            'Cookie': 'JSESSIONID=7402CFE46187B6367595ABDDAB1AAAD9; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1475983325,1475994954; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476242872; cla_sso_token=bdaf19557f1042d77105; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F'
             }
     
     #conn.request("POST", "/price/query_pickup_quotes", json.JSONEncoder().encode(params), headers)
@@ -42,11 +44,12 @@ def get_data(urls,enname):
         datas = json.loads(data)
         print datas.keys()
         print datas['status']
+        print datas['data']
     
         count = datas['data']['count']
         # 插入数据
         spiderdata.insert_one({
-            "enname": enname,
+            "ename": ename,
             "create_at": datetime.datetime.now(),
             "result": datas['data']['places'][0]
             })

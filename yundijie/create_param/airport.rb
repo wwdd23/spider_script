@@ -1,14 +1,85 @@
+#encoding: utf-8
+namespace :create_post do 
 
+  dese "接机post数据生成"
+  task :xxxx => :enviroment do 
+    send = []
+    info.each do |n|
+      coutnry = n[0]
+      aircode = n[1]
+      hotel = n[3]
+      airport_send = {
+        "airportCode": airport['airportCode'],
+        "airportHotWeight": airport['airportHotWeight'],
+        "airportId":airport['airportId'],
+        "airportLocation":airport['airportLocation'],
+        "airportName": airport['airportName'],
+        "bannerSwitch":airport['bannerSwitch'],
+        "isHotAirport":airport['isHotAirport'],
+        "landingVisaSwitch": airport['landingVisaSwitch'],
+        "cityId":airport['cityId'],
+        "location":airport['cityLocation']}
 
-info.each do |n|
-  n.each do |m|
-    p m[0]
-    p m[1]
-    p m[2]
+      #pickup task
+      pickup_re = {
+        "airportCode"=> airport['airportCode'],
+        "startLocation" => airport['airportLocation'],
+        "endLocation" => "#{house['result']['placeLat']},#{house['result']['placeLng']}",
+        "serviceDate" => "#{Time.now.tomorrow.to_date.to_s} 08:00:00", # 修正格式
+          "startDate" => Time.now.tomorrow.to_date.to_s,
+          "startTime" => "08:00",
+          "flightInfo" => {"is_custom":1},
+          "airportInfo" => airport_send,
+          "pickupAddress" => house['result'],
+      }
+
+      send << pickup_re
+    end
+    File.open('/tmp/pickup.json', 'w+') {|f| f.write(send.to_json)}
   end
+
+
+  dese "送机POST数据生成"
+  task :xxxx => :enviroment do 
+    send = []
+    date_array = Time.now.tomorrow.to_date...(Time.now.to_date + 30.days)
+
+    date_array.each do |date|
+      info.each do |n|
+        coutnry = n[0]
+        aircode = n[1]
+        hotel = n[3]
+
+        airport_send = {
+          "airportCode": airport['airportCode'],
+          "airportHotWeight": airport['airportHotWeight'],
+          "airportId":airport['airportId'],
+          "airportLocation":airport['airportLocation'],
+          "airportName": airport['airportName'],
+          "bannerSwitch":airport['bannerSwitch'],
+          "isHotAirport":airport['isHotAirport'],
+          "landingVisaSwitch": airport['landingVisaSwitch'],
+          "cityId":airport['cityId'],
+          "location":airport['cityLocation']}
+
+        #pickup task
+        transfer_res = {
+          "airportCode"=> airport['airportCode'],
+          "endLocation" => airport['airportLocation'],
+          "startLocation" => "#{house['result']['placeLat']},#{house['result']['placeLng']}",
+          "serviceDate" => "#{date.to_s} 08:00:00", 
+            # 修正格式
+            "startDate" => date.to_s,
+            "startTime" => "08:00",
+            "flightInfo" => {"is_custom":1},
+            "airportInfo" => airport_send,
+            "transferAddress" => house['result'],
+        }
+
+        send << transfer_res 
+      end
+    end
+    File.open('/tmp/transfer.json', 'w+') {|f| f.write(send.to_json)}
+  end
+
 end
-$mongo_spider['airportinfo'].
-
-
-
-info = [["伦敦","希思罗机场","Euston Station"],["巴黎","戴高乐机场 Hotel Champs Elysees Plaza"],["巴黎","奥利机场","Hotel Champs Elysees Plaza"],["马赛","马赛机场","Grand Tonic Hotel Marseille"],["尼斯","尼斯机场","Hotel Mercure Nice Centre Notre Dame"],["法兰克福","法兰克福机场","Rocco Forte Villa Kennedy"],["柏林","泰戈尔机场","Hilton Berlin"],["慕尼黑","慕尼黑机场","Hotel Exquisit"],["苏黎士","苏黎士机场","Central Plaza"],["米兰","马尔彭萨机场","Starhotels Rosa Grand Milan"],["罗马","菲乌米奇诺机场","Palazzo Montemartini Rome"],["墨尔本","墨尔本机场","Sheraton Hotel Melbourne"],["悉尼","悉尼机场","Hilton Sydney"],["奥克兰","奥克兰机场","Pullman Auckland"],["皇后镇","皇后镇机场","Oaks Shores Queenstown"],["东京","成田机场","Keio Plaza Hotel Tokyo"],["东京","羽田机场 Keio Plaza Hotel Tokyo"],["大阪","关西机场","Swissotel Nankai Osaka"],["那霸","冲绳机场","Hyatt Regency Naha Okinawa"],["首尔","仁川机场","Lotte Hotel Seoul"],["济州","济州国际空港","Maison Glad Jeju"],["台北","桃园机场","Grand Hyatt Taipei"],["曼谷","素万那普国际机场","Asia Hotel Bangkok"],]

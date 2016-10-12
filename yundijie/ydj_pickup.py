@@ -16,10 +16,11 @@ headers = {
         'Accept-Encoding':'gzip, deflate',
         'Accept-Language':'zh-CN,zh;q=0.8',
         'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.14) Gecko/20080404 (FoxPlus) Firefox/2.0.0.14',
-        'Cookie': 'cla_sso_token=78292837bfe24f3f5834; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F; JSESSIONID=79428E052E537716C8AA2F8CD6800AD2; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1476020986; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476110848'
-
+        'Cookie':'JSESSIONID=1C76282ACF7A924787017BBC657A9F52; Hm_lvt_c01e035e5dc6df389fa1746afc9cf708=1475908244,1475983325,1475994954; Hm_lpvt_c01e035e5dc6df389fa1746afc9cf708=1476261729; cla_sso_token=6fba0a6b6d464de9cb56; login_name=%E9%AB%98%E4%BC%9A%E5%A8%9F'
         }
-params = ({"airportCode":"CDG","startLocation":"49.009670,2.547860","endLocation":"48.873642,2.3062469","serviceDate":"2016-11-11 08:00:00","startDate":"2016-11-12","startTime":"08:00","flightInfo":{"is_custom":1},"airportInfo":{"airportCode":"CDG","airportHotWeight":0,"airportId":449,"airportLocation":"49.009670,2.547860","airportName":"戴高乐国际机场","bannerSwitch":1,"isHotAirport":0,"landingVisaSwitch":0,"cityId":138,"location":"49.009670,2.547860"},"pickupAddress":{"placeAddress":"35 Rue de Berri, 75008 Paris, 法国","placeIcon":"https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png","placeId":"ChIJEzb-M8Fv5kcR9yv80he-4sA","placeLat":48.873642,"placeLng":2.3062469,"placeName":"Hotel Champs Elysées Plaza*****","score":0.9033104181289673,"source":"google"}})
+#params = ({"airportCode":"CDG","startLocation":"49.009670,2.547860","endLocation":"48.873642,2.3062469","serviceDate":"2016-11-11 08:00:00","startDate":"2016-11-12","startTime":"08:00","flightInfo":{"is_custom":1},"airportInfo":{"airportCode":"CDG","airportHotWeight":0,"airportId":449,"airportLocation":"49.009670,2.547860","airportName":"戴高乐国际机场","bannerSwitch":1,"isHotAirport":0,"landingVisaSwitch":0,"cityId":138,"location":"49.009670,2.547860"},"pickupAddress":{"placeAddress":"35 Rue de Berri, 75008 Paris, 法国","placeIcon":"https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png","placeId":"ChIJEzb-M8Fv5kcR9yv80he-4sA","placeLat":48.873642,"placeLng":2.3062469,"placeName":"Hotel Champs Elysées Plaza*****","score":0.9033104181289673,"source":"google"}})
+
+params = ({"airportCode":"BKK","startLocation":"13.689999,100.750112","endLocation":"13.7513821,100.5311441","serviceDate":"2016-10-13 08:00:00","startDate":"2016-10-13","startTime":"08:00","flightInfo":{"is_custom":1},"airportInfo":{"airportCode":"BKK","airportHotWeight":0,"airportId":25,"airportLocation":"13.689999,100.750112","airportName":"素万那普国际机场","bannerSwitch":1,"isHotAirport":1,"landingVisaSwitch":0,"cityId":230,"location":"13.756137,100.501747"},"pickupAddress":{"placeName":"Asia Hotel Bangkok","placeAddress":"296 Phayathai Rd, Ratchathewi, Bangkok 10400泰国","placeLat":13.7513821,"placeId":"ChIJH2h86IGe4jARyjZ6wppSlkQ","source":"google","score":1.2428967952728271,"placeLng":100.5311441,"placeIcon":"https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png"}})
 
 conn.request("POST", "/price/query_pickup_quotes", json.JSONEncoder().encode(params), headers)
 response = conn.getresponse()
@@ -52,13 +53,14 @@ if response.status == 200:
     print address
     print startDate
     print serviceDate
-    spiderdata.insert_one({
-        "startDate": startDate, 
-        "serviceDate": serviceDate,
-        "airportName": airport,
-        "address": address,
-        "result": datas['data']
-        })
+#    spiderdata.insert_one({
+#        "startDate": startDate, 
+#        "serviceDate": serviceDate,
+#        "airportName": airport,
+#        "address": address,
+#        "type": "pickup",
+#        "result": datas['data']
+#        })
 
     print(data)
 
