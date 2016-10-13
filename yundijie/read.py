@@ -23,7 +23,7 @@ for i in line:
     print i,
     url = "http://yundijie.com/search/addresses?offset=0&limit=50&" + urllib.urlencode({"input":i})
     print url
-    time.sleep()
+    time.sleep(4)
     ydj_search.get_data(url,i.strip('\n') )
 
 #while line:

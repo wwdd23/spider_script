@@ -1,0 +1,85 @@
+### 抓取Airport 机场信息
+
+- 相关脚本
+  
+  ./get_airport.js
+
+- mongodb collaction 
+  data-analycis mongo 查询方法
+
+  $mongo_spider['airportinfo'].find()
+  
+
+
+### 抓取Hotel目的地信息
+
+- 相关脚本
+  
+  ./read.py  
+  ydj_search.py
+  
+- 解释
+
+  [需要修改cookies]
+  read.py 读取 当前目录下a.lst文件 生成 search需要的post url.
+
+  调用ydj_search.get_data 获取search到的数据
+  
+  选择第一个数据作为结果保存到  cityinfo 表中
+
+  
+- 注意事项
+  
+  search结果并不完全是精准数据。
+  会有同一个名称例如 苏黎世的酒店，查询最优解为香港的情况出现。
+  需要进一步优化数据结果
+
+- mongodb collaction 
+
+  data-analycis mongo 查询方法
+
+  $mongo_spider['cityinfo'].find()
+
+### spider 生成接送机POST数据
+
+- 用法
+  
+  进入haihuilai data-analycis 项目中
+
+  执行 
+    rake create_post:pickup   # 生成接机post数据 每日抓取逻辑的pickup数据
+    rake create_post:transfer # 生成送机post数据 xxxxxxxxxxxxx transfer 数据
+
+
+
+  运行完毕会在/tmp目录下生成 pickup.json / transfer.json 两个文件
+
+
+### 接送机数据抓取
+
+- 相关脚本
+  ydj_init.py
+  ydj_init_transfer.py
+  ydj_pickup.py
+  ydj_transfer.py
+
+- 用法
+  init/init_transfer 会分别调用 ydj_pickup.py / ydj_transfer.py
+
+  执行脚本会读取/tmp/目录下的pickup.json / transfer.json 进行数据抓取
+
+
+### Rails 每日爬取结果本地邮件推送
+
+- 用法进入haihuilai data项目
+  rake report_ydj:pickup
+  rake report_ydj:transfer
+
+
+
+
+#### 当前抓取逻辑任务数
+
+  pickup 25 次日接送机
+  transfer 750 未来30天25个目的地关系
+  
