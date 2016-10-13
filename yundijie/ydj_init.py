@@ -9,22 +9,42 @@
 
 import time
 
-import read_params
+#import read_params
 import ydj_search 
 import string
 
 import urllib
 import datetime
-f = open("a.lst")             # 返回一个文件对象
-line = f.readlines()            # 调用文件的 readline()方法
+import json
 
-print line
+import ydj_pickup
+from pprint import pprint
+import math
+
+
+f = open("/tmp/pickup.json",'r')             # 返回一个文件对象
+line = json.loads(f.readline())
+count = 0
 for i in line:
-    print i,
-    url = "http://yundijie.com/search/addresses?offset=0&limit=50&" + urllib.urlencode({"input":i})
-    print url
-    time.sleep()
-    ydj_search.get_data(url,i.strip('\n') )
+    #pprint(i)
+    time.sleep(4)
+    print count
+    ydj_pickup.pickup(i)
+#line = f.readlines()
+#print line
+#for i in line:
+#    print i
+
+
+
+
+#print line
+#for i in line:
+#    print i,
+#    url = "http://yundijie.com/search/addresses?offset=0&limit=50&" + urllib.urlencode({"input":i})
+#    print url
+#    time.sleep()
+#    ydj_search.get_data(url,i.strip('\n') )
 
 #while line:
 #    # print(line, end = '')　　　# 在 Python 3中使用
