@@ -28,6 +28,7 @@ count = 0
 for i in line:
     #pprint(i)
     time.sleep(4)
+    count += 1
     print count
     ydj_pickup.pickup(i)
 #line = f.readlines()

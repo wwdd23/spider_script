@@ -21,15 +21,17 @@ import ydj_pickup
 import ydj_transfer
 from pprint import pprint
 import math
+import sys
 
 
 f = open("/tmp/transfer.json",'r')             # 返回一个文件对象
 line = json.loads(f.readline())
-count = 0
+total = 0
 for i in line:
     #pprint(i)
-    time.sleep(5)
-    print count
+    time.sleep(6)
+    total += 1
+    print total
     ydj_transfer.trans(i)
 #line = f.readlines()
 #print line
